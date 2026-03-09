@@ -1,0 +1,82 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = 'nitesh — home', description = 'personal site' } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { href: '/', label: 'home' },
+  { href: '/whoami', label: 'whoami' },
+  { href: '/work', label: 'work' },
+  { href: '/blog', label: 'blog' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class="flex min-h-screen items-start justify-center p-4 sm:p-6 pt-16 md:pt-24 lg:pt-32 bg-dusty-900 text-dusty-500">
+    
+    <!-- Day indicator -->
+    <div id="day-indicator" class="fixed top-4 left-4 text-dusty-600 text-[0.75rem] font-mono"></div>
+
+    <script>
+      const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+      const el = document.getElementById('day-indicator');
+      if (el) el.textContent = "it's " + days[new Date().getDay()];
+    </script>
+    
+    <!-- 3-Column Split Layout Wrapper -->
+    <div class="flex w-full max-w-[720px] flex-col md:flex-row md:items-start mx-auto gap-0">
+      
+      <!-- LEFT: Navigation & Tools -->
+      <aside class="flex w-full shrink-0 flex-col md:w-[100px] md:items-end md:pr-3 mb-4 md:mb-0 md:border-r border-dusty-700">
+        
+        <!-- Nav -->
+        <nav class="nav-list text-left md:text-right flex flex-col gap-0.5 text-[0.8rem] font-mono">
+          {navItems.map(link => {
+            const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
+            return (
+              <a
+                href={link.href}
+                class:list={[
+                  'hover:text-[#eeeeee] transition-colors',
+                  isActive ? 'text-[#eeeeee] font-bold' : 'text-dusty-500'
+                ]}
+              >
+                {isActive ? `[ ${link.label} ]` : `  ${link.label}  `}
+              </a>
+            );
+          })}
+        </nav>
+      </aside>
+
+      <!-- CENTER & RIGHT WRAPPER -->
+      <div class="flex flex-1 flex-col md:flex-row">
+        
+        <!-- Center Content Slot Wrapper -->
+        <main class="w-full md:w-[520px] shrink-0 md:pl-3">
+          <slot />
+        </main>
+
+        <!-- Right Pane Slot -->
+        <aside class="hidden w-[180px] shrink-0 md:block">
+          <slot name="right-pane" />
+        </aside>
+
+      </div>
+
+    </div>
+  </body>
+</html>

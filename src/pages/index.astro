@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="nitesh" description="developer, tinkerer">
+  
+  <!-- CENTER PANE: Bio Text -->
+  <Fragment>
+    <div class="flex flex-col gap-1 text-[0.85rem] leading-snug text-dusty-500">
+      <div class="flex flex-col">
+        <h1 class="text-sm font-bold text-cyan-400">nitesh</h1>
+      </div>
+
+      <div class="mt-1">
+        <strong class="font-bold text-[#eeeeee]">AI systems engineer</strong><br/>
+        <span class="text-dusty-500">programmer. tinkerer. interested in how computers actually work.</span>
+      </div>
+
+      <div class="text-dusty-500">
+        currently re-reading: <a href="#" class="text-cyan-400 hover:underline hover:brightness-125">Designing data intensive applications</a><br/>
+        it is getting a bit boring
+      </div>
+
+      <div class="flex flex-col text-[0.8rem] mt-1">
+        <div class="text-cyan-400">contact:</div>
+        <div>email — <a href="mailto:hello@nitesh.dev" class="text-[#eeeeee] hover:text-cyan-400 transition-colors">
+nitesh2003.dev@gmail.com
+</a></div>
+        <div>github — <a href="https://github.com/nitesh-77" target="_blank" rel="noopener" class="text-[#eeeeee] hover:text-cyan-400 transition-colors">github.com/nitesh-77</a></div>
+        <div>linkedin — <a href="https://www.linkedin.com/in/nitesh-patel77/" target="_blank" rel="noopener" class="text-[#eeeeee] hover:text-cyan-400 transition-colors">linkedin.com/in/nitesh-patel77</a></div>
+      </div>
+    </div>
+  </Fragment>
+
+  <!-- RIGHT PANE: Profile Image -->
+  <Fragment slot="right-pane">
+    <div class="relative w-full overflow-hidden bg-dusty-800 pb-[100%] mt-2">
+      <span class="absolute inset-0 flex items-center justify-center text-[0.7rem] text-dusty-600">profile picture</span>
+      <img
+        src="/pfp.png"
+        alt="profile"
+        class="absolute inset-0 h-full w-full object-cover mix-blend-screen opacity-90 grayscale contrast-125 hover:grayscale-0 hover:mix-blend-normal transition-all duration-500"
+      />
+    </div>
+  </Fragment>
+
+</BaseLayout>

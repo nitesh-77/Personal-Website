@@ -1,0 +1,184 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const projects = [
+  {
+    title: 'llm-layer-distillation',
+    description: 'Hotswapping a Qwen 2.5 attention layer with a Hyena convolution.',
+    repo: 'https://github.com/nitesh-77/llm-layer-distillation.git',
+    image: '/previews/llm-layer-distillation.png',
+    tags: ['Python', 'PyTorch', 'Transformers', 'Research'],
+  },
+  {
+    title: 'Layer-Probing',
+    description: 'Probing information flow, entropy, and layer-wise representations inside large language models.',
+    repo: 'https://github.com/nitesh-77/Layer-Probing.git',
+    image: '/previews/Layer-Probing.png',
+    tags: ['Python', 'PyTorch', 'HuggingFace', 'Research'],
+  },
+  {
+    title: 'Agentic Researcher',
+    description: 'An agentic research tool that orchestrates multi-step workflows—searching, filtering, and scraping websites—to provide fact-checked answers.',
+    repo: 'https://github.com/nitesh-77/Agentic Researcher',
+    image: '/previews/Agentic Researcher.png',
+    tags: ['Python', 'LangChain', 'Agents', 'RAG'],
+  },
+  {
+    title: 'LinkedIn Lead Scraper',
+    description: 'CLI pipeline that scrapes LinkedIn company pages, ranks outreach targets by title, scores profiles with a local LLM, and exports enriched leads to Google Sheets.',
+    repo: 'https://github.com/nitesh-77/LinkedIn-Lead-Scraper.git',
+    image: '/previews/LinkedIn Lead Scraper.png',
+    tags: ['Python', 'CLI', 'LLM', 'Automation'],
+  },
+  {
+    title: 'RAG Voice Assistant',
+    description: 'A personal voice assistant application for experimenting with state-of-the-art transcription, response generation, and text-to-speech models.',
+    repo: 'https://github.com/nitesh-77/RAG-Voice-Assistant-',
+    image: '/previews/RAG-Voice-Assistant.png',
+    tags: ['Python', 'FastAPI', 'RAG', 'TTS'],
+  },
+  {
+    title: 'ReadWatch-Bot',
+    description: 'Personal media tracking PWA built with Supabase, TMDB & Jikan APIs which uses Discord bot to add/remove entries via chat commands.',
+    repo: 'https://github.com/nitesh-77/Readwatch-Bot.git',
+    image: '/previews/ReadWatch-Bot.png',
+    tags: ['JavaScript', 'Discord.js', 'Supabase', 'APIs'],
+  },
+  {
+    title: 'advent-of-code',
+    description: 'My solutions for Advent of code 2025 puzzles',
+    repo: 'https://github.com/nitesh-77/Readwatch-Bot.git',
+    image: '/previews/advent-of-code.png',
+    tags: ['Python'],
+  },
+  {
+    title: 'CryptVault',
+    description: 'A desktop app for managing encrypted files with a clean vault interface, strong AES‑256 encryption, and optional VPS sync for off‑site, zero‑knowledge backups.',
+    repo: 'https://github.com/nitesh-77/CryptVault.git',
+    image: '/previews/CryptVault.png',
+    tags: ['Python', 'Desktop', 'CustomTkinter', 'Cryptography', 'SQLCipher', 'Security'],
+  },
+];
+
+const oss = [
+  {
+    title: 'browser-use',
+    description: 'A critical asyncio deadlock and Gemini integration bug were causing CI/CD crashes and API failures across the codebase. Implemented stop() logic to unblock event loops and refactored Pydantic models for strict type compliance — eliminating pipeline failures and restoring API functionality for the entire userbase.  (Issues #3806, #3804)',
+    repo: 'https://github.com/browser-use/browser-use',
+    image: '',
+    tags: ['Python', 'AsyncIO', 'Pydantic', 'Bug Fix'],
+  },
+  {
+    title: 'torrra',
+    description: 'A runtime failure in Python 3.10 completely blocked execution for legacy users, making the CLI unusable. Engineered a tomllib fallback strategy and used PEP 621 to conditionally inject dependencies — restoring full cross-version compatibility without breaking newer environments.  (Issue #226)',
+    repo: 'https://github.com/stabldev/torrra',
+    image: '',
+    tags: ['Python', 'Compatibility', 'Bug Fix'],
+  },
+  {
+  title: 'crawl4ai',
+  description: 'A CPU-bound chardet.detect call was blocking the main asyncio event loop causing 1+ second lags, and a tuple immutability violation in FilterChain.add_filter was triggering AttributeError crashes. Offloaded detection to asyncio.to_thread and rewrote add_filter to construct a new tuple instead of mutating — eliminating the event loop bottleneck and fixing the crash while preserving the original design intent.  (Issue #1751, #1753)',
+  repo: 'https://github.com/unclecode/crawl4ai',
+  image: '',
+  tags: ['Python', 'AsyncIO', 'Bug Fix', 'Performance'],
+  },
+  
+];
+---
+
+<BaseLayout title="nitesh — work" description="projects and oss">
+  
+  <Fragment>
+    <!-- Explicitly set width to 900px to override BaseLayout center pane constraints -->
+    <div class="flex flex-col gap-6 text-[0.85rem] w-full md:w-[850px] lg:w-[900px] max-w-[100vw]">
+      
+      <!-- Tabs -->
+      <div class="flex gap-6 border-b border-dusty-800 pb-2 mt-2">
+        <button id="tab-projects" class="work-tab active font-bold text-cyan-400 pb-2 border-b-2 border-cyan-400 -mb-[9px] transition-colors">projects</button>
+        <button id="tab-oss" class="work-tab text-dusty-500 hover:text-[#eeeeee] pb-2 border-b-2 border-transparent -mb-[9px] transition-colors">oss contributions</button>
+      </div>
+
+      <!-- Tab Content: Projects -->
+      <div id="content-projects" class="tab-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {projects.map(p => (
+          <a href={p.repo} target="_blank" rel="noopener" class="group flex flex-col border border-dusty-800 rounded-lg bg-dusty-900/50 hover:border-cyan-400/70 hover:bg-dusty-800/20 transition-all overflow-hidden">
+            <!-- Preview Image -->
+            <div class="h-48 w-full bg-dusty-800 flex items-center justify-center text-dusty-600 text-[0.6rem] uppercase tracking-wider overflow-hidden relative">
+              {p.image ? (
+                <img src={p.image} alt={p.title} class="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-105" />
+              ) : (
+                <span class="relative z-10">preview_not_found</span>
+              )}
+              <div class="absolute inset-0 bg-gradient-to-t from-dusty-900/60 to-transparent"></div>
+            </div>
+            <!-- Card Body -->
+            <div class="flex flex-col gap-2 p-4 flex-1">
+              <h3 class="font-bold text-[#eeeeee] text-[0.85rem] leading-tight">{p.title}</h3>
+              <p class="text-dusty-500 text-[0.75rem] leading-relaxed m-0">{p.description}</p>
+              <!-- Skill Tags -->
+              <div class="flex flex-wrap gap-1.5 mt-auto pt-2">
+                {p.tags.map(tag => (
+                  <span class="text-[0.6rem] px-2 py-0.5 rounded border border-dusty-700 text-dusty-500 bg-dusty-800/50 group-hover:border-cyan-400/30 group-hover:text-cyan-400/80 transition-colors">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <!-- Tab Content: OSS -->
+      <div id="content-oss" class="tab-content hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {oss.map(o => (
+          <a href={o.repo} target="_blank" rel="noopener" class="group flex flex-col border border-dusty-800 rounded-lg bg-dusty-900/50 hover:border-cyan-400/70 hover:bg-dusty-800/20 transition-all overflow-hidden">
+            <!-- Card Body -->
+            <div class="flex flex-col gap-2 p-4 flex-1">
+              <div class="flex justify-between items-start gap-2">
+                <h3 class="font-bold text-[#eeeeee] text-[0.85rem] leading-tight flex-1">{o.title}</h3>
+                <span class="text-[0.55rem] border border-cyan-400/50 text-cyan-400 px-1.5 py-0.5 rounded-full whitespace-nowrap shrink-0">merged</span>
+              </div>
+              <p class="text-dusty-500 text-[0.75rem] leading-relaxed m-0">{o.description}</p>
+              <!-- Skill Tags -->
+              <div class="flex flex-wrap gap-1.5 mt-auto pt-2">
+                {o.tags.map(tag => (
+                  <span class="text-[0.6rem] px-2 py-0.5 rounded border border-dusty-700 text-dusty-500 bg-dusty-800/50 group-hover:border-cyan-400/30 group-hover:text-cyan-400/80 transition-colors">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+    </div>
+
+    <script>
+      function setupTabs() {
+        const tabProjects = document.getElementById('tab-projects');
+        const tabOss = document.getElementById('tab-oss');
+        const contentProjects = document.getElementById('content-projects');
+        const contentOss = document.getElementById('content-oss');
+
+        if (!tabProjects || !tabOss || !contentProjects || !contentOss) return;
+
+        const setActive = (tab: HTMLElement, content: HTMLElement, otherTab: HTMLElement, otherContent: HTMLElement) => {
+          // Active styles
+          tab.classList.add('active', 'font-bold', 'text-cyan-400', 'border-cyan-400');
+          tab.classList.remove('text-dusty-500');
+          content.classList.remove('hidden');
+          
+          // Inactive styles
+          otherTab.classList.remove('active', 'font-bold', 'text-cyan-400', 'border-cyan-400');
+          otherTab.classList.add('text-dusty-500', 'border-transparent');
+          otherContent.classList.add('hidden');
+        };
+
+        tabProjects.addEventListener('click', () => setActive(tabProjects, contentProjects, tabOss, contentOss));
+        tabOss.addEventListener('click', () => setActive(tabOss, contentOss, tabProjects, contentProjects));
+      }
+
+      // Run on initial load and View Transitions
+      document.addEventListener('astro:page-load', setupTabs);
+      // Fallback for standard load if View Transitions aren't active globally
+      setupTabs();
+    </script>
+  </Fragment>
+</BaseLayout>
